@@ -1,0 +1,17 @@
+const _respuestasMap = [
+  {
+    mapId: 'preguntaMap',
+    idProperty: 'id',
+    properties: ['texto', 'imagen_pregunta'],
+    collections: [
+      { name: 'respuestas', mapId: 'respuestasMap', columnPrefix: 'respuesta_' }
+    ]
+  },
+  {
+    mapId: 'respuestasMap',
+    idProperty: 'id',
+    properties: ['texto', 'validacion', 'imagen_respuesta',]
+  }
+]
+
+module.exports = _respuestaMap
