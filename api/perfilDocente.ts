@@ -3,9 +3,7 @@ import { mysql } from './lib/db';
 
 export default async function (req: NowRequest, res: NowResponse) {
 
-  console.log(req.params.id)
-
-  const result = await query(`SELECT 
+  const result = await mysql.query(`SELECT 
             persona.nombre_persona,
              usuario.usser, 
              usuario.pasword 
@@ -19,7 +17,7 @@ export default async function (req: NowRequest, res: NowResponse) {
                Usuario
               ON 
               persona.id_persona =usuario.fk_persona
-                WHERE rol.nombre_rol = "docente" and persona.id_persona = ${req.params.id}`);
+                WHERE rol.nombre_rol = "docente" and persona.id_persona = ${req.query.id}`);
   console.log(result[0])
   res.json(result[0]);
 
