@@ -1,0 +1,24 @@
+const _estrategiaMap = [
+  {
+    mapId: 'estrategiaMap',
+    idProperty: 'id',
+    properties: ['nombre','inteligencia','tema','nombre',],
+    collections: 
+      { name: 'actividad', mapId: 'actividadMap', columnPrefix: 'actividad_' },
+    ]
+  }, 
+  {
+    mapId: 'actividadMap',
+    idProperty: 'id_actividad',
+    properties: ['actividad' , 'fk_estrategia']
+  },
+   {
+    mapId: 'temadMap',
+    idProperty: 'id_tema',
+    properties: ['nombre' , 'fk_estrategia']
+  }
+
+]
+
+module.exports = _estrategiaMap
+
