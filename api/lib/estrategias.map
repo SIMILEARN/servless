@@ -2,10 +2,10 @@ const _estrategiaMap = [
   {
     mapId: 'estrategiaMap',
     idProperty: 'id',
-    properties: ['nombre','inteligencia','tema','nombre',],
-    collections: 
+    properties: ['nombre','inteligencia','tema'],
+    collections: [
       { name: 'actividad', mapId: 'actividadMap', columnPrefix: 'actividad_' },
-      { name: 'tema', mapId: 'temadMap', columnPrefix: 'tema_' }
+      { name: 'tema', mapId: 'temaMap', columnPrefix: 'tema_' }
     ]
   }, 
   {
@@ -14,7 +14,7 @@ const _estrategiaMap = [
     properties: ['actividad' , 'fk_estrategia']
   },
    {
-    mapId: 'temadMap',
+    mapId: 'temaMap',
     idProperty: 'id_tema',
     properties: ['nombre']
   }
