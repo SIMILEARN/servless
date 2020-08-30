@@ -7,8 +7,7 @@ export default async function (req: NowRequest, res: NowResponse) {
   let datos ={
     fk_test:req.body.fk_test,
     fk_incrispcion:req.body.fk_incrispcion,
-    fecha_intento:req.body.fecha_intento
-    
+    fecha_intento:req.body.fecha_intento 
   }
  
   try {
