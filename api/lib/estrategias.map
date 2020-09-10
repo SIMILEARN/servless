@@ -1,24 +1,19 @@
 const _estrategiaMap = [
   {
     mapId: 'estrategiaMap',
-    idProperty: 'id',
-    properties: ['nombre','inteligencia','tema'],
+    idProperty: 'id_estrategia',
+    properties: ['nombre_estrategia','fk_inteligencia','fk_tema'],
     collections: [
-      { name: 'actividad', mapId: 'actividadMap', columnPrefix: 'actividad_' },
-      { name: 'tema', mapId: 'temaMap', columnPrefix: 'tema_' }
+ 
+      { name: 'actividad', mapId: 'actividadMap', columnPrefix: 'actividad_' }
     ]
-  }, 
+  },
   {
     mapId: 'actividadMap',
     idProperty: 'id_actividad',
     properties: ['actividad' , 'fk_estrategia']
-  },
-   {
-    mapId: 'temaMap',
-    idProperty: 'id_tema',
-    properties: ['nombre']
   }
-
+   
 ]
 
 module.exports = _estrategiaMap

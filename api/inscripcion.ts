@@ -32,7 +32,8 @@ export default async function (req: NowRequest, res: NowResponse) {
             El procedimiento contiene un cursor que obtiene los productos y cantidades del detalle del pedido para saber cuales items debe agregar al detalle de la factura
           */
          console.log(idEstudiante);
-          await conn.query(`CALL inscripcion(${req.body.pin}, ${idEstudiante})`, async (err, result) => {
+         
+          const resultado = await conn.query(`CALL inscripcion(${req.body.pin}, ${idEstudiante})`, async (err, result) => {
             if(err){
               conn.rollback(() => {
                 throw err;
@@ -46,7 +47,7 @@ export default async function (req: NowRequest, res: NowResponse) {
               });
             }
             await conn.release();
-            res.json(result);
+            res.json(resultado);
           });
         });
       });

@@ -1,3 +1,4 @@
+
 import { NowRequest, NowResponse } from '@vercel/node'
 import { mysql } from './lib/db';
 
@@ -10,15 +11,15 @@ export default async function (req: NowRequest, res: NowResponse) {
             //Inicia la transacción
             conn.beginTransaction(async function (err) {
                 if (err) { throw err; }
-                await conn.query(`CALL resultaTest(${req.body.fk_intento})`, async (err, result) => {
+                await conn.query(`CALL resultadoTest(${req.body.fk_intento})`, async (err, result) => {
                     if (err) {
                         conn.rollback(() => {
                             throw err;
                         });
                     }
 
-              
-                    await conn.query(`CALL vistaTestIm(${result})`, async (err, result) => {
+
+                 const resultado =   await conn.query(`CALL prueba(${result})`, async (err, result) => {
                         if (err) {
                             conn.rollback(() => {
                                 throw err;
@@ -32,7 +33,7 @@ export default async function (req: NowRequest, res: NowResponse) {
                             });
                         }
                         await conn.release();
-                        res.json(result);
+                        res.json(resultado);
                     });
                 });
             });
