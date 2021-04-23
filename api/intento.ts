@@ -24,7 +24,7 @@ export default async function (req: NowRequest, res: NowResponse) {
           var idintento = result.id;
 
          Object.values(req.body.respuestas).map(async (respuesta) => {
-         const result = await conn.query(`CALL intento(${idintento}, ${respuesta.id})`, async (err, result) => {
+         const result = await conn.query(`CALL intento(${idintento}, ${respuesta})`, async (err, result) => {
             if(err){
               conn.rollback(() => {
                 throw err;
