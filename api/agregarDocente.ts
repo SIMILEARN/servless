@@ -10,5 +10,7 @@ export default async function (req: NowRequest, res: NowResponse) {
   .rollback(e => { /* do something with the error */ }) // optional
   .commit() 
 
+
+  res.json(results);
 }
 
