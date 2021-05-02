@@ -4,19 +4,29 @@ import { mysql } from './lib/db';
 
 export default async function (req: NowRequest, res: NowResponse) {
 
-  let datos = {
-    fk_test: req.body.fk_test,
-    fk_incrispcion: req.body.fk_incrispcion
-  }
 
-  const intento = await mysql.query('call intento (?,?)', [req.body.idUsser, req.body.fkTest]);
-  
   let results = await mysql.transaction()
-    .query('call insercionRespuestaEstudiante (?,?)', [req.body.idRes,req.body.idPre])
-    .query((r) => ['INSERT INTO desatalle_resultado (fk_intento, fk_respuesta) values (?,?)', [intento.insertId,r.insertId]])
-    .rollback(e => { /* do something with the error */ }) // optional
-    .commit()
+  .query(`insert into intento set fk_test = ?, fk_inscripcion = (SELECT
+    inscripcion.id
+  FROM
+    usuario
+    INNER JOIN
+    persona
+    ON 
+      usuario.fk_persona = persona.id_persona
+    INNER JOIN
+    inscripcion
+    ON 
+      persona.id_persona = inscripcion.fk_estudiante
+      where usuario.id_usuario = ?), fecha_intento= NOW(),	estado = "Sin terminar"`, [req.body.fkTest, req.body.idUsser] )
+  .query((r) => [
+  'call insercionRespuestaEstudiante (?,?,?)', [req.body.idRes,req.body.idPre, r.insertId]
+   ])
+  .rollback(e => { /* do something with the error */ }) // optional
+  .commit()
 
-  res.json(results);
+  console.log(results.insertId);
 
-}
+
+res.json(results);
+  }
