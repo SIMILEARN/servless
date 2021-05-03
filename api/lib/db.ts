@@ -6,3 +6,8 @@ export const mysql = require('serverless-mysql')({
     password: '845d7be3'
   }
 })
+
+//GRANT ALL PRIVILEGES ON heroku_c96e248066e8d6a.* TO 'b2982d2a9ead65'@'us-cdbr-east-02.cleardb.com' IDENTIFIED BY '845d7be3';
+
+
+//mysql://b2982d2a9ead65:845d7be3@us-cdbr-east-02.cleardb.com/heroku_c96e248066e8d6a?
