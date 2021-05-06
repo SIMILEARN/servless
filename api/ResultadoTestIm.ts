@@ -4,7 +4,7 @@ import { mysql } from './lib/db';
 
 export default async function (req: NowRequest, res: NowResponse) {
     try {
-        const result = await mysql.query(`call resultadoTest (${req.body.idIntento})`);
+        const result = await mysql.query(`call insertarResultadoIM (${req.body.idIntento})`);
         res.json(result);
       } catch (error) {
         console.log('Error =>', error);
