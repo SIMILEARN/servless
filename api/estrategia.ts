@@ -5,7 +5,7 @@ const joinjs = require('join-js')
 
 export default async function (req: NowRequest, res: NowResponse) {
 
-  const estrategia = await mysql.query(`call vistaEstrategias(${req.query.id_tema})`);
+  const estrategia = await mysql.query('call vistaEstrategias(${req.query.id_tema})');
   const join = await joinjs.default.map(estrategia, _estrategiaMap, 'estrategiaMap', 'estrategia_');
   console.log("estrategiaMap "+ _estrategiaMap);
   console.log("estrategia "+estrategia);
