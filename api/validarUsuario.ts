@@ -50,6 +50,8 @@ const errorCath = (res, code, msg) => {
 
 module.exports = allowCors(handler)
 
+res.json(handler);
+
     
  
 
