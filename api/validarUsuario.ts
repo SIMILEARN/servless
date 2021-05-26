@@ -1,46 +1,33 @@
 
 import { mysql } from './lib/db';
-
-
 import { NowRequest, NowResponse } from '@vercel/node';
-import escape from 'sql-template-strings';
-import allowCors from './lib/allowCors';
-import { sign } from 'jsonwebtoken';
+//import escape from 'sql-template-strings';
+//import allowCors from './lib/allowCors';
+//import { sign } from 'jsonwebtoken';
 
 export default async function (req: NowRequest, res: NowResponse) {
 
-
-const handler = async (req: NowRequest, res: NowResponse) => {
-  if(req.method === 'POST'){
     try {
-      req.body
-      const { user, password } = req.body;
-      if ((typeof user !== "undefined" && user) && (typeof password  !== "undefined" && password)) {
-        await mysql(escape`SELECT * FROM usuario WHERE username = ${user} AND password = ${password}`)
-        .then(response => {
-          if (response.length === 0){
-            errorCath(res, 401, 'El usuario no existe')
-          } else {
-            sign(response[0], 'privateKey', { expiresIn: 30 }, (err, token) => {
-              if(!err){
-                res.json({token:token})
-              } else {
-                console.log(err.toString())
-                errorCath(res, 500, null)
-              }
-            })
-          }
-        })
-      } else {
-        errorCath(res, 400, 'Usuario y contraseña son obligatorias')
-      }
-    } catch (error) {
-      errorCath(res, 400, 'Las credenciales son incorrectas')
+      if ((typeof req.body.user !== "undefined" && req.body.user) && (typeof req.body.password  !== "undefined" && req.body.password)) {
+      const result = await mysql.query(`SELECT * FROM usuario WHERE usuario.usser = "${req.body.user}" AND usuario.pasword = "${req.body.password}"`)
+      .then(response => {
+        if (response.length === 0){
+          errorCath(res, 401, 'El usuario no existe')
+        }else {
+          res.json(response);
+        }
+    
+    })
+    } else {
+      errorCath(res, 400, 'Usuario y contraseña son obligatorias')
     }
-  } else {
-    res.status(405).send(null);
-  } 
-}
+
+
+    } catch (error) {
+      console.log('Error =>', error);
+      res.send(error.sqlMessage);
+    } 
+  };
 
 const errorCath = (res, code, msg) => {
   return (msg != null)
@@ -48,14 +35,8 @@ const errorCath = (res, code, msg) => {
   : res.status(code).send(null)
 }
 
-module.exports = allowCors(handler)
-
-res.json(handler);
-
     
  
 
 
-
-};
 
